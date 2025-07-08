@@ -3,3 +3,7 @@ streamlit
 langchain
 huggingface_hub
 pandas
+streamlit
+langchain
+huggingface_hub
+pandas
