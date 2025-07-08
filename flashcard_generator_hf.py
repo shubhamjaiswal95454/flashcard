@@ -1,11 +1,8 @@
 import streamlit as st
-from langchain.llms import HuggingFaceHub
-
-from langchain_community.llms import HuggingFaceHub
+from langchain.llms import HuggingFaceHub  # ✅ No _community here
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 import pandas as pd
-
 st.set_page_config(page_title="AI Flashcard Generator", layout="wide")
 st.title("📚 AI Flashcard Generator")
 st.caption("Paste your notes or textbook content to auto-generate flashcards using Hugging Face!")
