@@ -1,4 +1,3 @@
-
 import streamlit as st
 from langchain.llms import HuggingFaceHub
 from langchain.prompts import PromptTemplate
@@ -9,8 +8,10 @@ st.set_page_config(page_title="AI Flashcard Generator", layout="wide")
 st.title("📚 AI Flashcard Generator")
 st.caption("Paste your notes or textbook content to auto-generate flashcards using Hugging Face!")
 
-# Hugging Face token input
-hf_token = st.text_input("🔑 Enter your Hugging Face API Token", type="password", placeholder="Paste your token here")
+# Use token from Streamlit secrets (fallback to manual input)
+hf_token = st.secrets.get("HUGGINGFACE_API_TOKEN", None)
+if not hf_token:
+    hf_token = st.text_input("🔑 Enter your Hugging Face API Token", type="password")
 
 text = st.text_area("📄 Paste your notes here", height=300)
 
@@ -33,11 +34,12 @@ Question: ...
 Answer: ...
 
 Content:
-"""{content}"""
+\"\"\"{content}\"\"\"
 
 Flashcards:
 """
             )
+
             chain = LLMChain(llm=llm, prompt=prompt)
             output = chain.run(content=text)
 
